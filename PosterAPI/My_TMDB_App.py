@@ -50,7 +50,6 @@ class Movie():
         return json.dumps(self.movie_result, indent=3)
 
     # Menu Option for user to choose which movie poster to download
-
     def menu(self):
 
         menu_choices = []
@@ -93,11 +92,9 @@ class Movie():
 
 
 movie= Movie()
-a = movie.movie_title
-print("Your search <----->" , a)
-b = movie.search()
-c = movie.menu()
-d = movie.user_input_for_poster(c)
+user_choice = movie.movie_title
+print("Your search <----->" , user_choice)
+search_results = movie.search()
+poster_menu = movie.menu()
+pickup = movie.user_input_for_poster(poster_menu)
 
-# for i in b:
-#     print(i)
