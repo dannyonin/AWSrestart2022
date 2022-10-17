@@ -1,15 +1,15 @@
 # TMDB API
 
-     MY API PROGRAM WITH FOR MOVIE POSTERS
-     SEARCH FOR POSTER IN TMDB DATA BASE
-     UPLOAD THE DATA TO MONGODB  WITH FLASK
-     ABILITY TO SEARCH IN THE DATA BASE
+MY API PROGRAM WITH FOR MOVIE POSTERS
+SEARCH FOR POSTER IN TMDB DATA BASE
+UPLOAD THE DATA TO MONGODB  WITH FLASK
+ABILITY TO SEARCH IN THE DATA BASE
 
 
-    <the code is not in final version>
+<the code is not in final version>
     <work in progress>
 
-    Author: Daniel Yonin
+Author: Daniel Yonin
     AWSRestart 2022
 
 
