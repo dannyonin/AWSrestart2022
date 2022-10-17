@@ -1,10 +1,9 @@
+import tmdbsimple as tmdb
 from flask import Flask
 from flask_mongoengine import MongoEngine
+from bs4 import BeautifulSoup
 import requests
-import tmdbsimple as tmdb
 import os
-
-
 
 
 # class Movie()
