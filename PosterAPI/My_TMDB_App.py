@@ -20,7 +20,6 @@ from flask import Flask
 from flask_mongoengine import MongoEngine
 from bs4 import BeautifulSoup
 import requests
-# import os
 import json
 
 
@@ -32,13 +31,14 @@ class Movie():
     def __init__(self):
 
         self.tmdb.API_KEY = self.os.environ["API_KEY"]
-        self.movie_title = input("Please Enter name of a Movie:")
+        self.movie_title = "avengers" #input("Please Enter name of a Movie:")
         self.movie_title_found = str
         self.movie_atr = {}
         self.movie_result = {}
 
     # Search Function for movie
     def search(self):
+
         search = tmdb.Search()
         search = search.movie(query=f'{self.movie_title}')
 
@@ -49,8 +49,55 @@ class Movie():
 
         return json.dumps(self.movie_result, indent=3)
 
+    # Menu Option for user to choose which movie poster to download
+
+    def menu(self):
+
+        menu_choices = []
+
+        for number, results in enumerate(self.movie_result):
+            menu_choices.append(f'{number + 1} : {results}')
+
+        for chocies in menu_choices:
+            print(chocies)
+        return menu_choices
+
+    # User input for choice menu
+    def user_input_for_poster(self,search_result):
+
+        choice = input("choose poster to download: ")
+        choice = int(choice)
+
+        if choice in range(1, len(search_result) + 1):
+            name = search_result[choice - 1]
+            print(f'your choice is {name}')
+            return name
+        else:
+            print("error input")
+
+    # Download Poster Function (save file locally in Downloads directory)
+    def download(self ,name, num, poster_path, path='.\Downloads'):
+        img_url = "https://image.tmdb.org/t/p/original/"
+        new_url = (img_url + poster_path[num])
+        r = requests.get(new_url)
+        name = name.replace(":", "").replace(" ", "")
+        filetype = r.headers['content-type'].split('/')[-1]
+        filename = f'{name}_poster.{filetype}'
+        print(filename)
+        filepath = os.path.join(path, filename)
+        with open(filepath, 'wb') as w:
+            w.write(r.content)
+
+
+
+
 
 movie= Movie()
-a=movie.movie_title
-print(a)
-print(movie.search())
+a = movie.movie_title
+print("Your search <----->" , a)
+b = movie.search()
+c = movie.menu()
+d = movie.user_input_for_poster(c)
+
+# for i in b:
+#     print(i)
