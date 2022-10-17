@@ -57,8 +57,8 @@ class Movie():
         for number, results in enumerate(self.movie_result):
             menu_choices.append(f'{number + 1} : {results}')
 
-        for chocies in menu_choices:
-            print(chocies)
+        for choices in menu_choices:
+            print(choices)
         return menu_choices
 
     # User input for choice menu
