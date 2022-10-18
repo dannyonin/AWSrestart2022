@@ -35,7 +35,7 @@ class Movie:
         self.movie_title_found = str
         self.movie_atr = {}
         self.movie_result = {}
-        self.POSTER_PATH = "https://image.tmdb.org/t/p/original/"
+        self.POSTER_PATH = "https://image.tmdb.org/t/p/original"
         self.path = "Downloads"
 
     # Search Function for movie
@@ -87,15 +87,17 @@ class Movie:
             print("New Directory Created")
 
     # Download Poster Function (save file locally in Downloads directory)
-    def download(self, name, num, poster_path, path=self.path):
-        img_url = "https://image.tmdb.org/t/p/original/"
-        new_url = (img_url + poster_path[num])
-        r = requests.get(new_url)
-        name = name.replace(":", "").replace(" ", "")
+    def download(self, chosen_movie):
+        poster_url = self.POSTER_PATH + chosen_movie[1]['poster_path']
+        print(poster_url)
+        r = requests.get(poster_url)
+        name = chosen_movie[0].replace(" ", "_").replace(":", "")
+        print(name)
         filetype = r.headers['content-type'].split('/')[-1]
+        print(filetype)
         filename = f'{name}_poster.{filetype}'
         print(filename)
-        filepath = os.path.join(path, filename)
+        filepath = os.path.join(self.path, filename)
         with open(filepath, 'wb') as w:
             w.write(r.content)
 
@@ -108,5 +110,5 @@ if __name__ == '__main__':
     search_results = movie.search()
     poster_menu = movie.menu()
     pickup = movie.user_input_for_poster(poster_menu)
-    print(list(pickup))
+    movie.download(pickup)
 
