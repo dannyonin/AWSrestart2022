@@ -24,7 +24,8 @@ import json
 
 
 # Class Movie built with TMDB API
-class Movie():
+class Movie:
+
     import tmdbsimple as tmdb
     import os
 
@@ -35,6 +36,8 @@ class Movie():
         self.movie_title_found = str
         self.movie_atr = {}
         self.movie_result = {}
+        self.POSTER_PATH = "https://image.tmdb.org/t/p/original/"
+
 
     # Search Function for movie
     def search(self):
@@ -55,10 +58,10 @@ class Movie():
         menu_choices = []
 
         for number, results in enumerate(self.movie_result):
-            menu_choices.append(f'{number + 1} : {results}')
+            menu_choices.append(f'{number + 1}:{results}')
 
-        for choices in menu_choices:
-            print(choices)
+        for choice in menu_choices:
+            print(choice)
         return menu_choices
 
     # User input for choice menu
@@ -66,13 +69,19 @@ class Movie():
 
         choice = input("choose poster to download: ")
         choice = int(choice)
+        try:
+            # if choice in range(1, len(search_result) + 1):
+            name = search_result[choice - 1].split(":",1)
+            print(f'your choice is {name[1]}')
+            return name[1], self.movie_result.get(name[1])
 
-        if choice in range(1, len(search_result) + 1):
-            name = search_result[choice - 1]
-            print(f'your choice is {name}')
-            return name
-        else:
+        except:
             print("error input")
+            return 1
+
+
+    def get_data(self, data, selected):
+        pass
 
     # Download Poster Function (save file locally in Downloads directory)
     def download(self ,name, num, poster_path, path='.\Downloads'):
@@ -88,13 +97,12 @@ class Movie():
             w.write(r.content)
 
 
-
-
-
-movie= Movie()
-user_choice = movie.movie_title
-print("Your search <----->" , user_choice)
-search_results = movie.search()
-poster_menu = movie.menu()
-pickup = movie.user_input_for_poster(poster_menu)
+if __name__ == '__main__':
+    movie = Movie()
+    user_choice = movie.movie_title
+    print("Your search <----->" , user_choice)
+    search_results = movie.search()
+    poster_menu = movie.menu()
+    pickup = movie.user_input_for_poster(poster_menu)
+    print(list(pickup))
 
