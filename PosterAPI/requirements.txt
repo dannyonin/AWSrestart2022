@@ -94,6 +94,7 @@ SQLAlchemy==1.4.42
 stack-data==0.5.1
 terminado==0.16.0
 tinycss2==1.2.1
+titlecase==2.4
 tmdb-python==0.0.9
 tmdbsimple==2.9.1
 tornado==6.2
