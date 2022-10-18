@@ -1,9 +1,10 @@
 # TMDB API :+1:
 -[x] :tada:
--[ ] MY API PROGRAM WITH FOR MOVIE POSTERS  
--[ ] SEARCH FOR POSTER IN TMDB DATA BASE 
--[ ] UPLOAD THE DATA TO MONGODB  WITH FLASK 
+-[ ] My Api program for movies posters
+-[ ] Search for Poster in TMDB data base
+-[ ] Upload data to mongodb with flask
 -[ ] ABILITY TO SEARCH IN THE DATA BASE
+-[ ] :tada:
 
 
 - the code is not in final version
