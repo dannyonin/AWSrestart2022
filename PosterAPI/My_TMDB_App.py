@@ -81,7 +81,7 @@ class Movie:
     def get_data(self, data, selected):
         pass
 
-    # Make New Downlods Directory if Not Exists in the App PATH
+    # Make New Downloads Directory if Not Exists in the App PATH
     def download_dir(self):
         isExist = os.path.exists(path=self.path)
         if not isExist:
