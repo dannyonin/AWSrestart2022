@@ -31,7 +31,7 @@ class Movie:
     def __init__(self):
 
         self.tmdb.API_KEY = self.os.environ["API_KEY"]
-        self.movie_title = "avengers"  # input("Please Enter name of a Movie:")
+        self.movie_title = "harry potter"  # input("Please Enter name of a Movie:")
         self.movie_title_found = str
         self.movie_atr = {}
         self.movie_result = {}
@@ -59,8 +59,8 @@ class Movie:
         for number, results in enumerate(self.movie_result):
             menu_choices.append(f'{number + 1}:{results}')
 
-        for choice in menu_choices:
-            print(choice)
+        # for choice in menu_choices:
+        #     print(choice)
         return menu_choices
 
     # User input for choice menu
