@@ -66,15 +66,17 @@ class Movie:
     # User input for choice menu
     def user_input_for_poster(self, search_result):
 
-        choice = input("choose poster to download: ")
-        choice = int(choice)
-        try:
-            name = search_result[choice - 1].split(":", 1)
-            print(f'your choice is {name[1]}')
-            return name[1], self.movie_result.get(name[1])
-        except:
-            print("error input")
-            return 1
+        while True:
+            choice = input("choose poster to download: ")
+
+            try:
+                choice = int(choice)
+                name = search_result[choice - 1].split(":", 1)
+                print(f'your choice is {name[1]}')
+                return name[1], self.movie_result.get(name[1])
+            except:
+                print("error input")
+            continue
 
     def get_data(self, data, selected):
         pass
@@ -111,4 +113,3 @@ if __name__ == '__main__':
     poster_menu = movie.menu()
     pickup = movie.user_input_for_poster(poster_menu)
     movie.download(pickup)
-
