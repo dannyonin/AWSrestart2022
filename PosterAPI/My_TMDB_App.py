@@ -31,7 +31,7 @@ class Movie:
     def __init__(self):
 
         self.tmdb.API_KEY = self.os.environ["API_KEY"]
-        self.movie_title = "harry potter"  # input("Please Enter name of a Movie:")
+        self.movie_title = "avengers"  # input("Please Enter name of a Movie:")
         self.movie_title_found = str
         self.movie_atr = {}
         self.movie_result = {}
@@ -111,5 +111,7 @@ if __name__ == '__main__':
     print("Your search <----->", user_choice)
     search_results = movie.search()
     poster_menu = movie.menu()
+    for list in poster_menu:
+        print(list)
     pickup = movie.user_input_for_poster(poster_menu)
     movie.download(pickup)
