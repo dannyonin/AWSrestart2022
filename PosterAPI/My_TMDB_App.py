@@ -13,6 +13,7 @@
     AWSRestart 2022
 
 '''
+import os.path
 
 import tmdbsimple as tmdb
 from flask import Flask
@@ -35,6 +36,7 @@ class Movie:
         self.movie_atr = {}
         self.movie_result = {}
         self.POSTER_PATH = "https://image.tmdb.org/t/p/original/"
+        self.path = "Downloads"
 
     # Search Function for movie
     def search(self):
@@ -77,8 +79,15 @@ class Movie:
     def get_data(self, data, selected):
         pass
 
+    # Make New Downlods Directory if Not Exists in the App PATH
+    def download_dir(self):
+        isExist = os.path.exists(path=self.path)
+        if not isExist:
+            os.makedirs(self.path)
+            print("New Directory Created")
+
     # Download Poster Function (save file locally in Downloads directory)
-    def download(self, name, num, poster_path, path='.\Downloads'):
+    def download(self, name, num, poster_path, path=self.path):
         img_url = "https://image.tmdb.org/t/p/original/"
         new_url = (img_url + poster_path[num])
         r = requests.get(new_url)
@@ -93,9 +102,11 @@ class Movie:
 
 if __name__ == '__main__':
     movie = Movie()
+    movie.download_dir()
     user_choice = movie.movie_title
     print("Your search <----->", user_choice)
     search_results = movie.search()
     poster_menu = movie.menu()
     pickup = movie.user_input_for_poster(poster_menu)
     print(list(pickup))
+
