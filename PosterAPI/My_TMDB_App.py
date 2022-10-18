@@ -14,7 +14,6 @@
 
 '''
 
-
 import tmdbsimple as tmdb
 from flask import Flask
 from flask_mongoengine import MongoEngine
@@ -25,19 +24,17 @@ import json
 
 # Class Movie built with TMDB API
 class Movie:
-
     import tmdbsimple as tmdb
     import os
 
     def __init__(self):
 
         self.tmdb.API_KEY = self.os.environ["API_KEY"]
-        self.movie_title = "avengers" #input("Please Enter name of a Movie:")
+        self.movie_title = "avengers"  # input("Please Enter name of a Movie:")
         self.movie_title_found = str
         self.movie_atr = {}
         self.movie_result = {}
         self.POSTER_PATH = "https://image.tmdb.org/t/p/original/"
-
 
     # Search Function for movie
     def search(self):
@@ -46,7 +43,7 @@ class Movie:
         search = search.movie(query=f'{self.movie_title}')
 
         for info in search['results']:
-            self.movie_atr = {key:value for (key,value) in info.items()}
+            self.movie_atr = {key: value for (key, value) in info.items()}
             self.movie_title_found = info['original_title']
             self.movie_result[self.movie_title_found] = self.movie_atr
 
@@ -65,26 +62,23 @@ class Movie:
         return menu_choices
 
     # User input for choice menu
-    def user_input_for_poster(self,search_result):
+    def user_input_for_poster(self, search_result):
 
         choice = input("choose poster to download: ")
         choice = int(choice)
         try:
-            # if choice in range(1, len(search_result) + 1):
-            name = search_result[choice - 1].split(":",1)
+            name = search_result[choice - 1].split(":", 1)
             print(f'your choice is {name[1]}')
             return name[1], self.movie_result.get(name[1])
-
         except:
             print("error input")
             return 1
-
 
     def get_data(self, data, selected):
         pass
 
     # Download Poster Function (save file locally in Downloads directory)
-    def download(self ,name, num, poster_path, path='.\Downloads'):
+    def download(self, name, num, poster_path, path='.\Downloads'):
         img_url = "https://image.tmdb.org/t/p/original/"
         new_url = (img_url + poster_path[num])
         r = requests.get(new_url)
@@ -100,9 +94,8 @@ class Movie:
 if __name__ == '__main__':
     movie = Movie()
     user_choice = movie.movie_title
-    print("Your search <----->" , user_choice)
+    print("Your search <----->", user_choice)
     search_results = movie.search()
     poster_menu = movie.menu()
     pickup = movie.user_input_for_poster(poster_menu)
     print(list(pickup))
-
