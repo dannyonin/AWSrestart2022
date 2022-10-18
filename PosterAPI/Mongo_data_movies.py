@@ -11,14 +11,23 @@ app.config['MONGODB_SETTINGS'] = {
     'host': 'localhost',
     'port': 27017
 }
-db = MongoEngine(app)
+db = MongoEngine()
+db.init_app(app)
+
+class Imdb(db.EmbeddedDocument):
+    imdb_id = db.StringField()
+    rating = db.DecimalField()
+    votes = db.IntField()
+
 class Movie_DB(db.Document):
     title = db.StringField(required=True)
     year = db.IntField()
     rated = db.StringField()
-    cast = db.EmbeddedDocumentListField(Cast)
     poster = db.FileField()
     imdb = db.EmbeddedDocumentField(Imdb)
+
+
+
 @app.route('/movies')
 def get_movies():
     my_movie = Movie()
@@ -27,6 +36,7 @@ def get_movies():
     movies = my_movie.search()
     return json.dumps(movies, indent=3), 200
 
+
 @app.route('/movies/<id>')
 def get_one_movie(id: str):
     movie = Movie.objects(id=id).first()
@@ -34,4 +44,4 @@ def get_one_movie(id: str):
 
 
 
-db.init_app(app.run())
+app.run(debug=True)
