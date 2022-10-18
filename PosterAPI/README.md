@@ -10,7 +10,7 @@
 - the code is not in final version
 - work in progress
 
-- Author: Daniel Yonin :cool:
+- Author: Daniel Yonin :tada:
     
 - AWSRestart 2022
 
