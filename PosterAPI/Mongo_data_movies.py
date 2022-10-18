@@ -28,14 +28,16 @@ class Movie_DB(db.Document):
     imdb = db.EmbeddedDocumentField(Imdb)
 
 
-
 @app.route('/movies')
 def get_movies():
-    my_movies = Movie()
-    user_choice = my_movies.movie_title
+
+    get_movies = Movie()
+    user_choice = get_movies.movie_title
     print("Your search <----->", user_choice)
-    movies = my_movies.search()
-    return json.dumps(movies, indent=3), 200
+    all_movies = get_movies.search()
+
+    return json.dumps(all_movies, indent=3), 200
+
 
 
 @app.route('/movies/<id>')
@@ -44,7 +46,6 @@ def get_one_movie(id: str):
     my_movies = Movie()
     user_choice = my_movies.movie_title
     print("Your search <----->", user_choice)
-
     movies = json.loads(my_movies.search())
     result = my_movies.menu()
     print("data page from movie title",id)
