@@ -4,13 +4,13 @@
 -[ ] Search for Poster in TMDB data base
 -[ ] Upload data to mongodb with flask
 -[ ] ABILITY TO SEARCH IN THE DATA BASE
--[ ] :tada:
+-[x] :tada:
 
 
 - the code is not in final version
 - work in progress
 
-- Author: Daniel Yonin :tada:
+- Author: Daniel Yonin :cool:
     
 - AWSRestart 2022
 
