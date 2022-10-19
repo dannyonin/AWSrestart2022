@@ -4,28 +4,49 @@ from mongoengine import *
 from My_TMDB_App import Movie
 import json
 from titlecase import titlecase
+import pymongo
+from gridfs import GridFS
 
 app = Flask(__name__)
 
-app.config['MONGODB_SETTINGS'] = {
-    'db': 'My_Posters_DB',
-    'host': 'localhost',
-    'port': 27017
-}
-db = MongoEngine()
-db.init_app(app)
 
-class Imdb(db.EmbeddedDocument):
-    imdb_id = db.StringField()
-    rating = db.DecimalField()
-    votes = db.IntField()
+class Image_Database():
+	def __init__(self):
+		self.mongo_host = "localhost"
+		self.mongo_port = 27017
+		self.mongo_db = 'MyPostersDB'
+		self.mongo_collection = 'movies'
+		self.mongo_safe = False
+		self.conn=connect(self.mongo_host, self.mongo_port)
+		self.db=self.conn[self.mongo_db]
+		self.collection = self.db[self.mongo_collection]
+		self.grid = GridFS(self.db, self.mongo_collection+".fs")
 
-class Movie_DB(db.Document):
-    title = db.StringField(required=True)
-    year = db.IntField()
-    rated = db.StringField()
-    poster = db.FileField()
-    imdb = db.EmbeddedDocumentField(Imdb)
+	def drop(self):
+		self.db.drop_collection(self.mongo_collection)
+		self.db.drop_collection(self.mongo_collection+".fs.chunks")
+		self.db.drop_collection(self.mongo_collection+".fs.files")
+
+	def set_raw(self, key, value):
+		try:
+			self.collection.update({'_id': key}, {"$set": { 'd': value } }, upsert=True, safe=self.mongo_safe)
+		except InvalidStringData:
+			self.rm(key)
+			self.grid.put(value, _id=key)
+
+
+class Movie_info(DynamicDocument):
+	title = StringField()
+	original_title = StringField()
+	original_language = StringField()
+	id = IntField()
+	overview = StringField()
+	poster = FileField()
+#
+class Poster(Document):
+	title = ReferenceField(Movie_info)
+
+
 
 
 @app.route('/movies')
@@ -39,6 +60,13 @@ def get_movies():
     return json.dumps(all_movies, indent=3), 200
 
 
+@app.route('/genres')
+def list_genres():
+
+	genres = Movie()
+	my_genre_list = genres.genre_list()
+
+	return json.dumps(my_genre_list) ,200
 
 @app.route('/movies/<id>')
 def get_one_movie(id: str):
@@ -53,5 +81,7 @@ def get_one_movie(id: str):
     return  movies[titlecase(id)], 200
 
 
+my_mongo = Image_Database()
+drop = my_mongo.drop()
 
 app.run(debug=True)
