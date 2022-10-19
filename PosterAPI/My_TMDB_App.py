@@ -15,6 +15,7 @@
 '''
 import os.path
 
+
 import tmdbsimple as tmdb
 from flask import Flask
 from flask_mongoengine import MongoEngine
@@ -31,10 +32,12 @@ class Movie:
     def __init__(self):
 
         self.tmdb.API_KEY = self.os.environ["API_KEY"]
-        self.movie_title = "avengers"  # input("Please Enter name of a Movie:")
+        self.movie_title = "cars"  # input("Please Enter name of a Movie:")
         self.movie_title_found = str
+        self.genres = {}
         self.movie_atr = {}
         self.movie_result = {}
+
         self.POSTER_PATH = "https://image.tmdb.org/t/p/original"
         self.path = "Downloads"
 
@@ -103,12 +106,18 @@ class Movie:
         with open(filepath, 'wb') as w:
             w.write(r.content)
 
+    def genre_list(self):
+        genre = tmdb.genres.Genres
+        return genre.movie_list(genre())
+
+
 
 if __name__ == '__main__':
     movie = Movie()
     movie.download_dir()
     user_choice = movie.movie_title
     print("Your search <----->", user_choice)
+    movie.genre_list()
     search_results = movie.search()
     poster_menu = movie.menu()
     for list in poster_menu:
