@@ -59,8 +59,16 @@ class Movie_info(DynamicDocument):
 class Poster(Document):
 	title = ReferenceField(Movie_info)
 
+#try to grt only the movie attributes - for database template
+@app.route('/test')
+def show_attributes():
 
+	mv = Movie()
+	atr = mv.search()
+	json_data= json.loads(atr)
+	h
 
+	return json_data.keys()
 
 @app.route('/movies')
 def get_movies():

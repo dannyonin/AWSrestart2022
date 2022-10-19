@@ -37,7 +37,7 @@ class Movie:
         self.genres = {}
         self.movie_atr = {}
         self.movie_result = {}
-
+        self.movie_atr_list = []
         self.POSTER_PATH = "https://image.tmdb.org/t/p/original"
         self.path = "Downloads"
 
@@ -54,7 +54,9 @@ class Movie:
 
         return json.dumps(self.movie_result, indent=3)
 
+
     # Menu Option for user to choose which movie poster to download
+
     def menu(self):
 
         menu_choices = []
@@ -81,8 +83,7 @@ class Movie:
                 print("error input")
             continue
 
-    def get_data(self, data, selected):
-        pass
+
 
     # Make New Downloads Directory if Not Exists in the App PATH
     def download_dir(self):
