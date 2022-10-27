@@ -10,7 +10,7 @@ from gridfs import GridFS
 app = Flask(__name__)
 
 
-class Database():
+class Database(object):
 	def __init__(self):
 		self.dataframe = {}
 		self.mongo_host = "localhost"
@@ -26,11 +26,11 @@ class Database():
 	def craete_collection(self):
 		pass
 
-
-	def drops(self):
-		self.db.collection.drop(self.mongo_collection)
-		self.db.collection.drop(self.mongo_collection+".fs.chunks")
-		self.db.collection.drop(self.mongo_collection+".fs.files")
+	@staticmethod
+	def drops():
+		db.collection.drop(self.mongo_collection)
+		db.collection.drop(self.mongo_collection+".fs.chunks")
+		db.collection.drop(self.mongo_collection+".fs.files")
 
 	def set_raw(self, key, value):
 		try:
